@@ -1,0 +1,39 @@
+{
+    "name": "guirong/php-router",
+    "type": "library",
+    "description": "Routing management module",
+    "keywords": [
+      "library",
+      "route",
+      "router",
+      "php-router"
+    ],
+    "homepage": "https://github.com/GuiRong2969/php-router",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Rong Gui",
+        "email": "15168272969@163.com"
+      }
+    ],
+    "require": {
+      "php": ">7.1.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+      "psr-4": {
+          "Guirong\\PhpRouter\\": "src/"
+      },
+      "files": [
+          "src/Helper/functions.php"
+        ]
+  },
+    "autoload-dev":  {
+      "psr-4": {
+        "Guirong\\RouteTest\\": "test/"
+      }
+    }
+  }
+  
