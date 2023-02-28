@@ -2,8 +2,8 @@
 
 namespace Guirong\RouteTest\Dispatcher;
 
-use Guirong\Route\Dispatcher\SimpleDispatcher;
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Dispatcher\SimpleDispatcher;
+use Guirong\PhpRouter\Router;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 

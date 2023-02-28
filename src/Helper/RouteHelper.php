@@ -3,7 +3,7 @@
  * User: Guirong
  */
 
-namespace Guirong\Route\Helper;
+namespace Guirong\PhpRouter\Helper;
 
 use InvalidArgumentException;
 use function array_filter;
@@ -31,7 +31,7 @@ use function ucfirst;
 
 /**
  * Class RouteHelper
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 class RouteHelper
 {

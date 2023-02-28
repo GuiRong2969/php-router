@@ -7,15 +7,15 @@ declare(strict_types=1);
  * Time: 下午8:03
  */
 
-namespace Guirong\Route\Dispatcher;
+namespace Guirong\PhpRouter\Dispatcher;
 
-use Guirong\Route\Helper\RouteHelper;
-use Guirong\Route\Route;
+use Guirong\PhpRouter\Helper\RouteHelper;
+use Guirong\PhpRouter\Route;
 use Throwable;
 use Closure;
 use Core\Exception\HttpException;
-use Guirong\Route\Ioc;
-use Guirong\Route\RouterInterface;
+use Guirong\PhpRouter\Ioc;
+use Guirong\PhpRouter\RouterInterface;
 use InvalidArgumentException;
 use LogicException;
 use RuntimeException;
@@ -24,7 +24,7 @@ use RuntimeException;
  * Class Dispatcher
  * 相比 SimpleDispatcher，支持更多的自定义选项控制
  *
- * @package Guirong\Route\Dispatcher
+ * @package Guirong\PhpRouter\Dispatcher
  */
 class Dispatcher
 {

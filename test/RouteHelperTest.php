@@ -5,7 +5,7 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\Helper\RouteHelper;
+use Guirong\PhpRouter\Helper\RouteHelper;
 use PHPUnit\Framework\TestCase;
 
 /**

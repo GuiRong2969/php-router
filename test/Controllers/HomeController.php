@@ -7,7 +7,7 @@ namespace Guirong\RouteTest\Controllers;
 
 /**
  * Class HomeController
- * @package Guirong\Route\example\controllers
+ * @package Guirong\PhpRouter\example\controllers
  */
 class HomeController
 {

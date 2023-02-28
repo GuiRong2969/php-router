@@ -7,12 +7,12 @@ declare(strict_types=1);
  * Time: 下午8:03
  */
 
-namespace Guirong\Route\Response;
+namespace Guirong\PhpRouter\Response;
 
 
 /**
  * Class Response
- * @package Guirong\Route\Response
+ * @package Guirong\PhpRouter\Response
  */
 class Response
 {

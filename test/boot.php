@@ -24,7 +24,7 @@ if (file_exists($libDir . '/vendor/autoload.php')) {
 
     $npMap  = [
         'Guirong\RouteTest\\' => $libDir . '/test/',
-        'Guirong\Route\\'     => $libDir . '/src/',
+        'Guirong\PhpRouter\\'     => $libDir . '/src/',
     ];
 
     spl_autoload_register(function ($class) use ($npMap) {

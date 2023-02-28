@@ -4,15 +4,15 @@
 
 > 匹配速度快，查找匹配速度基本上不受路由数量和路由的复杂度的影响
 
-- `Guirong\Route\SRouter` 是静态类版本. 
-- `Guirong\Route\Router` 是对象版本
+- `Guirong\PhpRouter\SRouter` 是静态类版本. 
+- `Guirong\PhpRouter\Router` 是对象版本
 
 压测： [benchmark](./benchmark.md)
 
 ## 路由收集
 
 ```php
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Router;
 
 $router = new Router();
 
@@ -56,7 +56,7 @@ $router->any('/home', function() {
 
 // 路由组
 $router->group('/user', function ($router) {
-    /** @var \Guirong\Route\Router $router */
+    /** @var \Guirong\PhpRouter\Router $router */
     $router->get('/', function () {
         echo 'hello. you access: /user/';
     });

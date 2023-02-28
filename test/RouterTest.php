@@ -2,15 +2,15 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\Route;
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Route;
+use Guirong\PhpRouter\Router;
 use Guirong\RouteTest\Controllers\DemoController;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Runner\Version;
 use Throwable;
 use function in_array;
-use function Guirong\Route\createRouter;
+use function Guirong\PhpRouter\createRouter;
 use function sprintf;
 
 class RouterTest extends TestCase

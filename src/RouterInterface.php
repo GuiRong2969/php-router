@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use Countable;
 use IteratorAggregate;
@@ -11,7 +11,7 @@ use IteratorAggregate;
 /**
  * Interface RouterInterface
  *
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 interface RouterInterface extends IteratorAggregate, Countable
 {

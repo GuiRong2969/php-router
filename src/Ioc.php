@@ -1,6 +1,6 @@
 <?php
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 /**
  * 容器类，使用该类来实现自动依赖注入

@@ -5,11 +5,11 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\CachedRouter;
-use Guirong\Route\Route;
+use Guirong\PhpRouter\CachedRouter;
+use Guirong\PhpRouter\Route;
 use PHPUnit\Framework\TestCase;
 use function file_exists;
-use function Guirong\Route\createCachedRouter;
+use function Guirong\PhpRouter\createCachedRouter;
 use function unlink;
 
 /**

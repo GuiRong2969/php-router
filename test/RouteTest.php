@@ -2,7 +2,7 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\Route;
+use Guirong\PhpRouter\Route;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 

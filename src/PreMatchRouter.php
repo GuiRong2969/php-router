@@ -4,9 +4,9 @@
  * User: Guirong
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
-use Guirong\Route\Helper\RouteHelper;
+use Guirong\PhpRouter\Helper\RouteHelper;
 use LogicException;
 use function parse_url;
 use function strpos;
@@ -19,7 +19,7 @@ use const PHP_URL_PATH;
  *  - 收集路由前就将当前请求的 path 和 METHOD 提前设置进来。
  *  - 搜集时，所有的静态路由在添加时会挨个匹配。 匹配成功后不再接受添加路由。
  *  - 匹配时，若已经提前匹配成功直接返回匹配到的。
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 final class PreMatchRouter extends Router
 {

@@ -5,15 +5,15 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\PreMatchRouter;
-use Guirong\Route\Route;
-use Guirong\Route\RouterInterface;
+use Guirong\PhpRouter\PreMatchRouter;
+use Guirong\PhpRouter\Route;
+use Guirong\PhpRouter\RouterInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class PreMatchRouterTest
  * @package Guirong\RouteTest
- * @covers \Guirong\Route\PreMatchRouter
+ * @covers \Guirong\PhpRouter\PreMatchRouter
  */
 class PreMatchRouterTest extends TestCase
 {

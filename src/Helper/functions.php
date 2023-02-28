@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use Closure;
 

@@ -124,7 +124,7 @@ Macaw - first route (1000 routes)                       | 999 | 1.782017 | +1.78
 首先, 需要导入类
 
 ```php
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Router;
 
 $router = new Router();
 ```
@@ -134,7 +134,7 @@ $router = new Router();
 创建一个简单的 `public/index.php` 文件:
 
 ```php
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Router;
 
 // 需要先加载 autoload 文件
 require dirname(__DIR__) . '/vendor/autoload.php';
@@ -155,7 +155,7 @@ $router->dispatch();
 
 - 不使用 Composer
 
-如果是直接下载的包代码，可以加载 `test/boot.php` 文件，也可以加载到 `Guirong\Route` 命名空间.
+如果是直接下载的包代码，可以加载 `test/boot.php` 文件，也可以加载到 `Guirong\PhpRouter` 命名空间.
 
 用如下的语句替换上面的 `autoload.php` 加载语句即可：
 
@@ -312,10 +312,10 @@ $routeInfo = $router->match($path, $method);
 
 ## 路由调度
 
-如果你不想自己实现路由调度，可以使用内置的路由调度器 `Guirong\Route\Dispatcher\Dispatcher`
+如果你不想自己实现路由调度，可以使用内置的路由调度器 `Guirong\PhpRouter\Dispatcher\Dispatcher`
 
 ```php
-use Guirong\Route\Dispatcher\Dispatcher;
+use Guirong\PhpRouter\Dispatcher\Dispatcher;
 
 $dispatcher = new Dispatcher([
     // default action method name

@@ -3,17 +3,17 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use Closure;
-use Guirong\Route\Dispatcher\DispatcherInterface;
+use Guirong\PhpRouter\Dispatcher\DispatcherInterface;
 use InvalidArgumentException;
 use LogicException;
 use function method_exists;
 
 /**
  * Class SRoute - this is static class version
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  * @method static get(string $path, mixed $handler, array $binds = [], array $opts = [])
  * @method static post(string $path, mixed $handler, array $binds = [], array $opts = [])
  * @method static put(string $path, mixed $handler, array $binds = [], array $opts = [])

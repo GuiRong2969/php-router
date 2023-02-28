@@ -8,11 +8,11 @@
  * then you can access url: http://127.0.0.1:5675
  */
 
-use Guirong\Route\Dispatcher\Dispatcher;
+use Guirong\PhpRouter\Dispatcher\Dispatcher;
 
 require dirname(__DIR__) . '/test/boot.php';
 
-$router = new \Guirong\Route\ServerRouter();
+$router = new \Guirong\PhpRouter\ServerRouter();
 
 // set config
 $router->config([

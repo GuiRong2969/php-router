@@ -5,14 +5,14 @@ declare(strict_types=1);
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use ArrayIterator;
 use Closure;
-use Guirong\Route\Dispatcher\Dispatcher;
-use Guirong\Route\Dispatcher\DispatcherInterface;
-use Guirong\Route\Helper\RouteHelper;
-use Guirong\Route\Response\Response;
+use Guirong\PhpRouter\Dispatcher\Dispatcher;
+use Guirong\PhpRouter\Dispatcher\DispatcherInterface;
+use Guirong\PhpRouter\Helper\RouteHelper;
+use Guirong\PhpRouter\Response\Response;
 use InvalidArgumentException;
 use LogicException;
 use Throwable;
@@ -30,7 +30,7 @@ use function trim;
 
 /**
  * Class Router - This is object version
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 class Router implements RouterInterface
 {

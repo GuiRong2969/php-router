@@ -1,7 +1,7 @@
 <?php
 
 
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Router;
 
 // 使用composer, 需要先加载 autoload 文件
 // require dirname(__DIR__) . '/vendor/autoload.php';

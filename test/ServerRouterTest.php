@@ -5,8 +5,8 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\Route;
-use Guirong\Route\ServerRouter;
+use Guirong\PhpRouter\Route;
+use Guirong\PhpRouter\ServerRouter;
 use PHPUnit\Framework\TestCase;
 use function array_shift;
 

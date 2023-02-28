@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use ArrayIterator;
 use IteratorAggregate;
@@ -31,7 +31,7 @@ use function trim;
 
 /**
  * Class Route
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 final class Route implements IteratorAggregate
 {

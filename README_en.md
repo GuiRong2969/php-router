@@ -95,7 +95,7 @@ Macaw - first route (1000 routes)                       | 999 | 1.782017 | +1.78
 first, import the class
 
 ```php
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Router;
 
 $router = new Router();
 ```
@@ -221,7 +221,7 @@ $router->config([
 ## Route dispatcher
 
 ```php
-use Guirong\Route\Dispatcher;
+use Guirong\PhpRouter\Dispatcher;
 
 $dispatcher = new Dispatcher([
     'dynamicAction' => true,

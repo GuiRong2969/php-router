@@ -5,14 +5,14 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\PreMatchRouter;
-use Guirong\Route\RouterManager;
+use Guirong\PhpRouter\PreMatchRouter;
+use Guirong\PhpRouter\RouterManager;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class RouterManagerTest
  * @package Guirong\RouteTest
- * @covers \Guirong\Route\RouterManager
+ * @covers \Guirong\PhpRouter\RouterManager
  */
 class RouterManagerTest extends TestCase
 {

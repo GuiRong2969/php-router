@@ -4,9 +4,9 @@
  * User: Guirong
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
-use Guirong\Route\Helper\RouteHelper;
+use Guirong\PhpRouter\Helper\RouteHelper;
 use LogicException;
 use function array_shift;
 use function count;
@@ -18,7 +18,7 @@ use function strtoupper;
  * 适用于常驻后台的应用程序(e.g swoole server, workman)
  * - 多了动态路由临时缓存
  *
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 final class ServerRouter extends Router
 {

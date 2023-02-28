@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use LogicException;
 use function date;
@@ -20,7 +20,7 @@ use function var_export;
  * - 注：不能将 handler 设置为 \Closure (无法缓存 \Closure)
  * - 路由选项的 选项值 同样不允许 \Closure
  *
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 final class CachedRouter extends Router
 {

@@ -10,8 +10,8 @@
  * then you can access url: http://127.0.0.1:5671
  */
 
-use Guirong\Route\Dispatcher\Dispatcher;
-use Guirong\Route\Router;
+use Guirong\PhpRouter\Dispatcher\Dispatcher;
+use Guirong\PhpRouter\Router;
 
 require dirname(__DIR__) . '/test/boot.php';
 

@@ -7,7 +7,7 @@
 
 require dirname(__DIR__, 2) . '/test/boot.php';
 
-$router = new \Guirong\Route\Router();
+$router = new \Guirong\PhpRouter\Router();
 
 $router->get('/', function () {
     echo 'hello, welcome';

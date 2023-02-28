@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use LogicException;
 use function method_exists;
@@ -13,7 +13,7 @@ use function ucfirst;
 /**
  * Trait RouterConfigTrait
  *
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 trait RouterConfigTrait
 {

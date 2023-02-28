@@ -29,7 +29,7 @@ for ($i = 0; $i < $n; $i++) {
 }
 
 $startMem = memory_get_usage();
-$router = new \Guirong\Route\CachedRouter([
+$router = new \Guirong\PhpRouter\CachedRouter([
     'cacheFile' => __DIR__ . '/cached/bench-routes-cache.php',
     'cacheEnable' => 0,
     // 'tmpCacheNumber' => 100,

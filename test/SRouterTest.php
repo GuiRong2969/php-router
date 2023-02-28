@@ -2,9 +2,9 @@
 
 namespace Guirong\RouteTest;
 
-use Guirong\Route\Route;
-use Guirong\Route\Router;
-use Guirong\Route\SRouter;
+use Guirong\PhpRouter\Route;
+use Guirong\PhpRouter\Router;
+use Guirong\PhpRouter\SRouter;
 use PHPUnit\Framework\TestCase;
 
 /**

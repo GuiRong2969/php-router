@@ -3,7 +3,7 @@
  * User: Rong Gui
  */
 
-namespace Guirong\Route;
+namespace Guirong\PhpRouter;
 
 use InvalidArgumentException;
 use function in_array;
@@ -11,7 +11,7 @@ use function is_string;
 
 /**
  * Class RouterManager
- * @package Guirong\Route
+ * @package Guirong\PhpRouter
  */
 class RouterManager
 {

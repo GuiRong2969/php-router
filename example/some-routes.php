@@ -7,7 +7,7 @@
  */
 
 use Guirong\RouteTest\Controllers\HomeController;
-use Guirong\Route\RouterInterface;
+use Guirong\PhpRouter\RouterInterface;
 
 function handler0()
 {
