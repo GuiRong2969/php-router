@@ -50,7 +50,7 @@ class Dispatcher
      */
     protected $options = [
         // Filter the `/favicon.ico` request.
-        'filterFavicon' => false,
+        'filterFavicon' => true,
 
         // default action method name
         'defaultAction' => 'index',
