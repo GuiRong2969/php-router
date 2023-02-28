@@ -25,8 +25,7 @@
 
 **内置调度器：**
 
-- 支持事件: `found` `notFound` `execStart` `execEnd` `execError`. 当触发事件时你可以做一些事情(比如记录日志等)
-- 支持动态获取`action`名。支持设置方法执行器(`actionExecutor`)，通过方法执行器来自定义调用真实请求方法. 
+- 支持事件: `notFound` `methodNotAllowed` . 当触发事件时你可以做一些事情(比如记录日志等)
 - 支持通过方法 `$router->dispatch($path, $method)` 手动调度一个路由
 - 你即使不配置任何东西, 它也能很好的工作
 
