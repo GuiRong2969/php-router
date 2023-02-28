@@ -9,11 +9,8 @@ declare(strict_types=1);
 
 namespace Guirong\PhpRouter\Dispatcher;
 
-use Guirong\PhpRouter\Helper\RouteHelper;
 use Guirong\PhpRouter\Route;
 use Throwable;
-use Closure;
-use Core\Exception\HttpException;
 use Guirong\PhpRouter\Ioc;
 use Guirong\PhpRouter\RouterInterface;
 use InvalidArgumentException;
