@@ -38,8 +38,7 @@
 
 ## 项目地址
 
-- **github** https://github.com/inhere/php-srouter.git
-- **gitee** https://gitee.com/inhere/php-srouter.git
+- **github** https://github.com/GuiRong2969/php-router
 
 ## 安装
 
@@ -73,10 +72,7 @@ git clone https://github.com/inhere/php-srouter.git // github
 - 第一条路由匹配
 - 最后一条路由匹配
 - 不存在的路由匹配
-
-详细的测试代码请看仓库 https://github.com/ulue/php-router-benchmark
-
-- 压测日期 **2018.11.19**
+- 压测日期 **2022.11.19**
 - An example route: `/9b37eef21e/{arg1}/{arg2}/{arg3}/{arg4}/{arg5}/{arg6}/{arg7}/{arg8}/{arg9}/bda37e9f9b`
 
 ## Worst-case matching
@@ -440,11 +436,7 @@ MIT
 
 ## 我的其他项目
 
-### `inhere/console` [github](https://github.com/inhere/php-console) [git@osc](https://git.oschina.net/inhere/php-console)
+### `guirong/cli-message` [github](https://github.com/GuiRong2969/cli-message)
 
-功能丰富的命令行应用，命令行工具库
-
-### `inhere/php-validate` [github](https://github.com/inhere/php-validate)  [git@osc](https://git.oschina.net/inhere/php-validate)
- 
- 一个简洁小巧且功能完善的php验证库。仅有几个文件，无依赖。
+一个简单易用的，命令行输出样式工具库
  
