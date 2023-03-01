@@ -6,7 +6,7 @@
 namespace Guirong\PhpRouter;
 
 use LogicException;
-use Opis\Closure\ClosureSerialize;
+use Guirong\PhpClosure\ClosureSerialize;
 use function date;
 use function file_exists;
 use function file_put_contents;
