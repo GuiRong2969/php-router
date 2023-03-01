@@ -7,11 +7,9 @@ namespace Guirong\PhpRouter;
 
 use LogicException;
 use Opis\Closure\ClosureSerialize;
-
 use function date;
 use function file_exists;
 use function file_put_contents;
-use function preg_replace;
 use function trim;
 use function var_export;
 
