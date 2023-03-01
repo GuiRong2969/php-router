@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 /**
  * User: Rong Gui
- * Date: 2017/4/27
- * Time: 下午11:56
  *
  */
 

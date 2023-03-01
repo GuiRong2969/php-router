@@ -647,4 +647,8 @@ final class Route implements IteratorAggregate
 
         return $handlerName;
     }
+
+    public static function __set_state(){
+        
+    }
 }

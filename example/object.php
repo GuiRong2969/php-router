@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 /**
  * User: Rong Gui
- * Date: 2017/7/14
- * Time: 下午9:12
  *
  * you can test use:
  *  php -S 127.0.0.1:5671 example/object.php

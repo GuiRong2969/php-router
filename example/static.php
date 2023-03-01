@@ -1,8 +1,6 @@
 <?php declare(strict_types=1);
 /**
  * User: Rong Gui
- * Date: 2017/4/28
- * Time: 上午12:00
  *
  * you can test use:
  *  php -S 127.0.0.1:5670 example/static.php

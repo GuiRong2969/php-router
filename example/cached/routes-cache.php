@@ -2,7 +2,6 @@
 /*
  * This is routes cache file of the package `inhere/sroute`.
  * It is auto generate by Guirong\PhpRouter\CachedRouter.
- * @date 2018-11-19 01:12:54
  * @count 44
  * @notice Please don't edit it.
  */

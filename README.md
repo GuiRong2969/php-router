@@ -44,7 +44,7 @@
 - composer 命令
 
 ```php
-composer require inhere/sroute
+composer require guirong/php-router
 ```
 
 - composer.json
@@ -52,7 +52,7 @@ composer require inhere/sroute
 ```json
 {
     "require": {
-        "inhere/sroute": "dev-master"
+        "guirong/php-router": "dev-master"
     }
 }
 ```
@@ -60,7 +60,7 @@ composer require inhere/sroute
 - 直接拉取
 
 ```bash
-git clone https://github.com/inhere/php-srouter.git // github
+git clone https://github.com/GuiRong2969/php-router.git // github
 ```
 
 <a name="ab-test"></a>
