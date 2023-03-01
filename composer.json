@@ -17,11 +17,11 @@
       }
     ],
     "require": {
-      "php": ">7.1.0",
-      "guirong/php-closure": "^1.0"
+      "php": ">7.1.0"
     },
     "require-dev": {
-      "phpunit/phpunit": "^7.5"
+      "phpunit/phpunit": "^7.5",
+      "guirong/php-closure": "^1.0"
     },
     "autoload": {
       "psr-4": {
