@@ -6,7 +6,7 @@
 namespace Guirong\PhpRouter;
 
 use LogicException;
-use Guirong\PhpClosure\ClosureSerialize;
+use Opis\Closure\ClosureSerialize;
 
 use function date;
 use function file_exists;
@@ -120,19 +120,19 @@ final class CachedRouter extends Router
         }
 
         // load routes
-        $map                = require $file;
+        $map = require $file;
+
         $this->routeCounter = 0;
         $staticRoutes       = $regularRoutes = $vagueRoutes = [];
 
         foreach ($this->decodeRoutes($map['staticRoutes']) as $key => $info) {
             $this->routeCounter++;
-            // $staticRoutes[$key] = Route::createFromArray($info);
             $staticRoutes[$key] = $info;
         }
+
         foreach ($this->decodeRoutes($map['regularRoutes']) as $key => $routes) {
             foreach ($routes as $info) {
                 $this->routeCounter++;
-                // $regularRoutes[$key][] = Route::createFromArray($info);
                 $regularRoutes[$key][] = $info;
             }
         }
@@ -140,7 +140,6 @@ final class CachedRouter extends Router
         foreach ($this->decodeRoutes($map['vagueRoutes']) as $key => $routes) {
             foreach ($routes as $info) {
                 $this->routeCounter++;
-                // $vagueRoutes[$key][] = Route::createFromArray($info);
                 $vagueRoutes[$key][] = $info;
             }
         }
@@ -151,14 +150,6 @@ final class CachedRouter extends Router
         $this->cacheLoaded   = true;
 
         return true;
-    }
-
-    public function encodeRoutes($routes){
-        return base64_encode(ClosureSerialize::serialize($routes));
-    }
-
-    public function decodeRoutes($routes){
-        return ClosureSerialize::unserialize(base64_decode($routes));
     }
 
     /**
@@ -186,7 +177,7 @@ final class CachedRouter extends Router
         $code = <<<EOF
 <?php
 /*
- * This is routes cache file of the package `Guirong/PhpRouter`.
+ * This is routes cache file of the package `inhere/sroute`.
  * It is auto generate by $class.
  * @date $date
  * @count $count
@@ -201,11 +192,27 @@ return array (
 'vagueRoutes' => $vagueRoutes,
 );\n
 EOF;
-        return file_put_contents($file, preg_replace(
-            ['/\s+\n\s+Guirong\\\\PhpRouter\\\\Route::__set_state\(/', '/\)\),/', '/=>\s+\n\s+array \(/'],
-            [' ', '),', '=> array ('],
-            $code
-        ));
+        return file_put_contents($file,$code);
+    }
+
+    /**
+     * decode cache routes
+     *
+     * @param array $data
+     * @return string
+     */
+    private function encodeRoutes(array $data){
+        return base64_encode(ClosureSerialize::serialize($data));
+    }
+
+    /**
+     * decode cache routes
+     *
+     * @param string $data
+     * @return array
+     */
+    private function decodeRoutes(string $data){
+        return ClosureSerialize::unserialize(base64_decode($data));
     }
 
     /**
