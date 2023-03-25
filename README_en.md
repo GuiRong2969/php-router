@@ -249,6 +249,134 @@ $dispatcher->on('notFound', function ($uri) {
 $router->dispatch($dispatcher);
 ```
 
+## Middleware (optional)
+
+Middleware provides a convenient mechanism to check and filter HTTP requests entering an application。
+
+> NOTICE: The following middleware will perform some tasks before the application processes the request：
+```php
+<?php
+
+namespace App\Middleware;
+
+use Closure;
+
+class BeforeMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        // you can do something in here ...
+
+        return $next($request);
+    }
+
+    public function terminate($request,$response){
+        // do something after app response
+    }
+}
+```
+
+> NOTICE: This middleware will perform its tasks after the request is processed by the application：
+```php
+<?php
+
+namespace App\Middleware;
+
+use Closure;
+
+class AfterMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+
+        // do something
+
+        return $response;
+    }
+
+    public function terminate($request,$response){
+        // do something after app response
+    }
+}
+```
+
+> NOTICE: Define middleware configuration classes
+
+If you want to define your own configuration class, please inherit the default configuration first `Guirong\PhpRouter\Middleware\Config`
+
+```php
+<?php
+
+namespace App\Middleware;
+
+use Guirong\PhpRouter\Middleware\Config;
+
+class MyConfig extends Config
+{
+    /**
+     * The application's middleware stack.
+     * Global middleware 
+     * @var array
+     */
+    protected $middleware = [
+        // \App\Middleware\BeforeMiddleware::class
+    ];
+
+    /**
+     * The application's route middleware.
+     *
+     * @return array
+     */
+    protected $routeMiddleware = [
+        'before' => \App\Middleware\BeforeMiddleware::class,
+        'after' => \App\Middleware\AfterMiddleware::class,
+    ];
+}
+
+```
+> NOTICE: Global middleware takes effect globally by default, and routing needs to be manually assigned
+ 
+Example：
+
+Enable in a single route
+```php
+$router->middleware(['bedore','after'])->get('/user', 'App\Controllers\UserController');
+
+```
+or
+```php
+$router->middleware('bedore','after')->get('/user', 'App\Controllers\UserController');
+
+```
+
+Enable in routing group
+```php
+$router->middleware('bedore','after')->group('/user', function ($router) {
+    $router->get('/', function () {
+        echo 'hello. you access: /user/';
+    });
+    $router->get('/index', function () {
+        echo 'hello. you access: /user/index';
+    });
+});
+
+```
+or
+```php
+$router->group('/user', function ($router) {
+    $router->get('/', function () {
+        echo 'hello. you access: /user/';
+    });
+    $router->get('/index', function () {
+        echo 'hello. you access: /user/index';
+    });
+},['bedore','after']);
+
+```
+
+>NOTICE: After configuring the middleware in the above routing, the `http` request will pass through the `handle` function of the `before` middleware. After processing the main business, it will then pass through the `handle` function of the `after` middleware. Finally, after the program response, it will successively enter the `before` and `after` middleware's' `terminate` 'functions
+
 ## example
 
 please the `example` folder's codes.
