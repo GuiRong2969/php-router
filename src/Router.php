@@ -9,9 +9,11 @@ namespace Guirong\PhpRouter;
 
 use ArrayIterator;
 use Closure;
+use Exception;
 use Guirong\PhpRouter\Dispatcher\Dispatcher;
 use Guirong\PhpRouter\Dispatcher\DispatcherInterface;
 use Guirong\PhpRouter\Helper\RouteHelper;
+use Guirong\PhpRouter\Middleware\Config;
 use Guirong\PhpRouter\Response\Response;
 use InvalidArgumentException;
 use LogicException;
@@ -164,12 +166,34 @@ class Router implements RouterInterface
      *
      * @return Router
      */
-    public function middleware(...$middleware): Router
+    public function middleware(...$middleware): RouteRegistrar
     {
+        return (new RouteRegistrar($this))->middleware(...$middleware);
+    }
+
+    /**
+     * with middleware(s) when register route
+     *
+     * @param array $middleware
+     * @return Router
+     */
+    public function withMiddleware($middleware): self
+    {
+        $this->resettingMiddleware();
         foreach ($middleware as $handler) {
             $this->chains[] = $handler;
         }
+        return $this;
+    }
 
+    /**
+     * reset routing middleware
+     *
+     * @return Router
+     */
+    public function resettingMiddleware()
+    {
+        $this->chains = [];
         return $this;
     }
 
@@ -375,6 +399,9 @@ class Router implements RouterInterface
             $this->namedRoutes[$name] = $route;
         }
 
+        //Set middleware
+        $route->setChains($this->chains);
+
         // It is static route
         $argPos = strpos($path, '{');
         $optPos = strpos($path, '[');
@@ -405,6 +432,23 @@ class Router implements RouterInterface
      * @param array   $opts
      */
     public function group(string $prefix, Closure $callback, array $middleware = [], array $opts = []): void
+    {
+        if ($middleware) {
+            $this->middleware($middleware)->groupBuilder($prefix, $callback, $middleware, $opts);
+        } else {
+            $this->groupBuilder($prefix, $callback, $middleware, $opts);
+        }
+    }
+
+    /**
+     * Build routing group data.
+     *
+     * @param string $prefix
+     * @param Closure $callback
+     * @param array $middleware
+     * @param array $opts
+     */
+    public function groupBuilder(string $prefix, Closure $callback, array $middleware = [], array $opts = [])
     {
         // Backups
         $previousGroupPrefix = $this->currentGroupPrefix;
@@ -633,6 +677,7 @@ class Router implements RouterInterface
      * @return mixed
      * @throws LogicException
      * @throws Throwable
+     * @return Response
      */
     public function dispatch($dispatcher = null, string $path = '', string $method = '')
     {
@@ -649,8 +694,29 @@ class Router implements RouterInterface
         $response = (new Response())->toResponse(
             $dispatcher->dispatchUri($path, $method)
         );
+        
+        return $response;
+    }
 
-        $response->send();
+    /**
+     * Obtain middleware responsibility chains
+     *
+     * @param DispatcherInterface|array $dispatcher
+     * @param string               $path
+     * @param string               $method
+     * @return array
+     */
+    public function getMiddleWareChains($dispatcher = null, string $path = '', string $method = ''){
+        if (!$dispatcher) {
+            $dispatcher = new Dispatcher();
+        } elseif (is_array($dispatcher)) {
+            $dispatcher = new Dispatcher($dispatcher);
+        }
+
+        if (!$dispatcher->hasRouter()) {
+            $dispatcher->setRouter($this);
+        }
+        return $dispatcher->getMiddleWareChains($path, $method);
     }
 
     /*******************************************************************************
@@ -745,6 +811,11 @@ class Router implements RouterInterface
     public function getChains(): array
     {
         return $this->chains;
+    }
+
+    public function getStaticRoutes(): array
+    {
+        return $this->staticRoutes;
     }
 
     protected function cloneRoute(): Route

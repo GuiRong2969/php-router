@@ -11,7 +11,7 @@ namespace Guirong\PhpRouter\Dispatcher;
 
 use Guirong\PhpRouter\Route;
 use Throwable;
-use Guirong\PhpRouter\Ioc;
+use Guirong\PhpRouter\App\Ioc;
 use Guirong\PhpRouter\RouterInterface;
 use InvalidArgumentException;
 use LogicException;
@@ -120,6 +120,54 @@ class Dispatcher
     }
 
     /**
+     * Resolve route matching
+     *
+     * @param string $path
+     * @param string $method
+     * @return void
+     */
+    protected function resolveRouteMatch(string $path = '', string $method = '')
+    {
+        $match = [];
+        $path = $path ?: $_SERVER['REQUEST_URI'];
+
+        if (strpos($path, '?')) {
+            $path = (string)parse_url($path, PHP_URL_PATH);
+        }
+
+        // if 'filterFavicon' setting is TRUE
+        if ($path !== self::FAV_ICON || !$this->options['filterFavicon']) {
+            $method = $method ?: $_SERVER['REQUEST_METHOD'];
+            $method = strtoupper($method);
+
+            /** @var Route $route */
+            [$status, $path, $route] = $this->router->match($path, $method);
+            $match = [
+                'status' => $status,
+                'path' => $path,
+                'route' => $route,
+            ];
+        }
+        return $match;
+    }
+
+    /**
+     * Runs the callback for the given path and method.
+     *
+     * @param string      $path
+     * @param null|string $method
+     *
+     * @return array
+     * @throws Throwable
+     */
+    public function getMiddleWareChains(string $path = '', string $method = ''): array
+    {
+        $match = $this->resolveRouteMatch($path, $method);
+        $route = $match['route'] ?? null;
+        return $route ? $route->getChains() : [];
+    }
+
+    /**
      * Runs the callback for the given path and method.
      *
      * @param string      $path
@@ -130,24 +178,11 @@ class Dispatcher
      */
     public function dispatchUri(string $path = '', string $method = '')
     {
-        $path = $path ?: $_SERVER['REQUEST_URI'];
-
-        if (strpos($path, '?')) {
-            $path = (string)parse_url($path, PHP_URL_PATH);
-        }
-
-        // if 'filterFavicon' setting is TRUE
-        if ($path === self::FAV_ICON && $this->options['filterFavicon']) {
+        $match = $this->resolveRouteMatch($path, $method);
+        if (empty($match)) {
             return null;
         }
-
-        $method = $method ?: $_SERVER['REQUEST_METHOD'];
-        $method = strtoupper($method);
-
-        /** @var Route $route */
-        [$status, $path, $route] = $this->router->match($path, $method);
-
-        return $this->dispatch($status, $path, $method, $route);
+        return $this->dispatch($match['status'], $match['path'], $method, $match['route']);
     }
 
     /**
@@ -173,7 +208,6 @@ class Dispatcher
 
     /**
      * @param string $path
-     * @param string $method
      * @param Route  $route
      *
      * @return bool|mixed|null
@@ -304,17 +338,18 @@ class Dispatcher
     protected function handleNotFound(string $path, string $method, $actionNotExist = false)
     {
         $handler = $this->getOption(self::ON_NOT_FOUND);
-        if($handler && $handler != '/404'){
-            $this->callHandler('',$handler);
-        }else{
+        if ($handler && $handler != '/404') {
+            $this->callHandler('', $handler);
+        } else {
             $this->handleDefaultNotFound($path, $method, $actionNotExist);
         }
     }
 
-    protected function handleDefaultNotFound(string $path, string $method, $actionNotExist = false){
-        if($actionNotExist){
+    protected function handleDefaultNotFound(string $path, string $method, $actionNotExist = false)
+    {
+        if ($actionNotExist) {
             throw new RuntimeException("route error , function $path -> $method not exist");
-        }else{
+        } else {
             throw new RuntimeException("route not defined , path:$path");
         }
     }
@@ -332,17 +367,18 @@ class Dispatcher
     protected function handleNotAllowed(string $path, string $method, array $methods)
     {
         $handler = $this->getOption(self::ON_METHOD_NOT_ALLOWED);
-        if($handler){
-            $this->callHandler('',$handler);
-        }else{
+        if ($handler) {
+            $this->callHandler('', $handler);
+        } else {
             $this->handleDefaultNotAllowed($path, $method, $methods);
         }
     }
 
-    protected function handleDefaultNotAllowed(string $path, string $method, array $methods){
+    protected function handleDefaultNotAllowed(string $path, string $method, array $methods)
+    {
         throw new RuntimeException("route error , $method method not allowed");
     }
-    
+
 
     /**
      * Defines callback on happen event

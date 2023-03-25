@@ -71,7 +71,7 @@ final class PreMatchRouter extends Router
         }
 
         $this->reqPath   = RouteHelper::formatPath($path, $this->ignoreLastSlash);
-        $this->reqMethod = $method ? strtoupper($method) : $_SERVER['REQUEST_METHOD'];
+        $this->reqMethod = $method ? strtoupper($method) : ($_SERVER['REQUEST_METHOD']??'');
     }
 
     /**
@@ -94,7 +94,6 @@ final class PreMatchRouter extends Router
         // Success match
         if ($path === $this->reqPath && $method === $this->reqMethod) {
             $this->preFounded = $route;
-            return $route;
         }
 
         return parent::addRoute($route);

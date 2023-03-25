@@ -1,6 +1,6 @@
 <?php
 
-namespace Guirong\PhpRouter;
+namespace Guirong\PhpRouter\App;
 
 /**
  * 容器类，使用该类来实现自动依赖注入
@@ -140,9 +140,13 @@ class Ioc
                     if ($paramClass = $param->getClass()) {
                         // 获得参数类型名称
                         $paramClassName = $paramClass->getName();
-                        // 获得参数类型
-                        $args = self::getMethodParams($paramClassName);
-                        $paramArr[] = (new \ReflectionClass($paramClass->getName()))->newInstanceArgs($args);
+                        if(self::isResident($paramClassName)){
+                            $paramArr[] = self::getResidentInstance($paramClassName);
+                        }else{
+                            // 获得参数类型
+                            $args = self::getMethodParams($paramClassName);
+                            $paramArr[] = (new \ReflectionClass($paramClass->getName()))->newInstanceArgs($args);
+                        }  
                     } else if ($param->isDefaultValueAvailable()) {
                         $paramArr[] = $param->getDefaultValue();
                     } else {
@@ -152,5 +156,25 @@ class Ioc
             }
         }
         return $paramArr;
+    }
+
+    protected static $resident = [];
+
+    public static function setResidentInstance(object $instance)
+    {
+        $name = get_class($instance);
+        self::$resident[] = $name;
+        self::$services[self::$scope][$name] = $instance;
+        return true;
+    }
+
+    protected static function isResident($name)
+    {
+        return in_array($name, self::$resident);
+    }
+
+    protected static function getResidentInstance($name)
+    {
+        return self::$services[self::$scope][$name];
     }
 }

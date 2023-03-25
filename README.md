@@ -409,6 +409,135 @@ $router->any('/user[/{name}]', 'App\Controllers\UserController');
 $router->dispatch($dispatcher);
 ```
 
+## 中间件（可选）
+
+中间件提供了一种方便的机制来检查和过滤进入应用程序的 HTTP 请求。
+
+> NOTICE: 以下中间件将在应用程序处理请求之前执行一些任务：
+```php
+<?php
+
+namespace App\Middleware;
+
+use Closure;
+
+class BeforeMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        // 你可以在这里执行一些操作 ...
+
+        return $next($request);
+    }
+
+    public function terminate($request,$response){
+        // 请求响应完成后执行操作
+    }
+}
+```
+
+> NOTICE: 此中间件将在请求由应用程序处理后执行其任务：
+```php
+<?php
+
+namespace App\Middleware;
+
+use Closure;
+
+class AfterMiddleware
+{
+    public function handle($request, Closure $next)
+    {
+        $response = $next($request);
+
+        // 执行操作
+
+        return $response;
+    }
+
+    public function terminate($request,$response){
+        // 请求响应完成后执行操作
+    }
+}
+```
+
+> NOTICE: 定义中间件配置类
+
+如果您想自己定义配置类，请先继承默认配置 `Guirong\PhpRouter\Middleware\Config`
+
+```php
+<?php
+
+namespace App\Middleware;
+
+use Guirong\PhpRouter\Middleware\Config;
+
+class MyConfig extends Config
+{
+    /**
+     * The application's middleware stack.
+     * Global middleware 
+     * @var array
+     */
+    protected $middleware = [
+        // \App\Middleware\BeforeMiddleware::class
+    ];
+
+    /**
+     * The application's route middleware.
+     *
+     * @return array
+     */
+    protected $routeMiddleware = [
+        'before' => \App\Middleware\BeforeMiddleware::class,
+        'after' => \App\Middleware\AfterMiddleware::class,
+    ];
+}
+
+```
+> NOTICE: 全局中间件默认全局生效，路由中间需手动指派
+ 
+示例：
+
+在单一路由中启用
+```php
+$router->middleware(['bedore','after'])->get('/user', 'App\Controllers\UserController');
+
+```
+或
+```php
+$router->middleware('bedore','after')->get('/user', 'App\Controllers\UserController');
+
+```
+
+在路由组中启用
+```php
+$router->middleware('bedore','after')->group('/user', function ($router) {
+    $router->get('/', function () {
+        echo 'hello. you access: /user/';
+    });
+    $router->get('/index', function () {
+        echo 'hello. you access: /user/index';
+    });
+});
+
+```
+或
+```php
+$router->group('/user', function ($router) {
+    $router->get('/', function () {
+        echo 'hello. you access: /user/';
+    });
+    $router->get('/index', function () {
+        echo 'hello. you access: /user/index';
+    });
+},['bedore','after']);
+
+```
+
+>NOTICE: 在以上路由中配置完中间件，`http` 请求会经过 `before` 中间件的 `handle` 函数,在处理完主业务后，继而经过 `after` 中间件的 `handle` 函数，最后在程序 response 后依次进入 `before` ,`after` 中间件的 `terminate` 函数
+
+
 ## 运行示例
 
 示例代码在 `example` 下。
