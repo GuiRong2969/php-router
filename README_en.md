@@ -246,7 +246,13 @@ $dispatcher->on('notFound', function ($uri) {
 ### begin dispatch
 
 ```php
-$router->dispatch($dispatcher);
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->handle(
+    $request = $_REQUEST,
+);
+
+$response->send();
 ```
 
 ## Middleware (optional)
@@ -372,6 +378,22 @@ $router->group('/user', function ($router) {
         echo 'hello. you access: /user/index';
     });
 },['bedore','after']);
+
+```
+
+> Routing matching and scheduling
+
+```php
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->handle(
+    $request = $_REQUEST,   //Your request resource, can be customized
+    \App\Middleware\MyConfig::class //Your middleware configuration class, can be customized
+);
+
+$response->send();
+
+$app->terminate($request, $response);
 
 ```
 

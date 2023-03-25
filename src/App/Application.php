@@ -21,7 +21,23 @@ class Application
      */
     protected $router;
 
+    /**
+     * Middleware Config Instance
+     *
+     * @var \Guirong\PhpRouter\Middleware\Config
+     */
     protected $middleware;
+
+    /**
+     * Router instance dispatch function's vailable parameters
+     *
+     * @var array
+     */
+    protected $dispatchOptions = [
+        'dispatcher' => null,
+        'path' => '',
+        'method' => ''
+    ];
 
     public function __construct(object $router)
     {
@@ -122,8 +138,36 @@ class Application
     protected function dispatchToRouter(): Closure
     {
         return function ($request) {
-            return $this->router->dispatch();
+            return $this->router->dispatch(...$this->getAvailableDispathOptions());
         };
+    }
+
+    /**
+     * Set dispatch function's vailable parameters
+     *
+     * @param array $options
+     * @return $this
+     */
+    public function setDispathOptions(array $options)
+    {
+        if ($options) {
+            $this->dispatchOptions = array_merge($this->dispatchOptions, $options);
+        }
+        return $this;
+    }
+
+    /**
+     * Get Router instance dispatch function's vailable parameters
+     *
+     * @return array
+     */
+    protected function getAvailableDispathOptions(): array
+    {
+        return [
+            $this->dispatchOptions['dispatcher'],
+            $this->dispatchOptions['path'],
+            $this->dispatchOptions['method']
+        ];
     }
 
     /**

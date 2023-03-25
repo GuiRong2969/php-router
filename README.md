@@ -146,7 +146,14 @@ $router->get('/', function() {
 });
 
 // 开始调度运行
-$router->dispatch();
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->handle(
+    $request = $_REQUEST,   //你的请求资源，可自定义
+);
+
+$response->send();
+
 ```
 
 使用php启动一个测试server： `php -S 127.0.0.1:8080 -t ./public`
@@ -345,6 +352,20 @@ $dispatcher->on('methodNotAllowed', function ($uri) {
 });
 ```
 
+> 开始路由匹配和调度
+
+```php
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->setDispatcOptions(
+    ['dispatcher' => $dispatcher]
+)->handle(
+    $request = $_REQUEST,   //你的请求资源，可自定义
+);
+
+$response->send();
+```
+
 ### 使用控制器方法
 
 通过`@`符号连接控制器类和方法名可以指定执行方法。
@@ -406,7 +427,13 @@ $router->any('/user[/{name}]', 'App\Controllers\UserController');
 ## 开始路由匹配和调度
 
 ```php
-$router->dispatch($dispatcher);
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->handle(
+    $request = $_REQUEST,   //你的请求资源，可自定义
+);
+
+$response->send();
 ```
 
 ## 中间件（可选）
@@ -532,6 +559,22 @@ $router->group('/user', function ($router) {
         echo 'hello. you access: /user/index';
     });
 },['bedore','after']);
+
+```
+
+> 路由匹配和调度
+
+```php
+$app = new \Guirong\PhpRouter\App\Application($router);
+
+$response = $app->handle(
+    $request = $_REQUEST,   //你的请求资源，可自定义
+    \App\Middleware\MyConfig::class //你的中间件配置类，可自定义
+);
+
+$response->send();
+
+$app->terminate($request, $response);
 
 ```
 
