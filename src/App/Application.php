@@ -53,7 +53,9 @@ class Application
      */
     public function handle($request, string $middlewareConfigClass = '')
     {
-        Ioc::setResidentInstance($request);
+        if (is_object($request)) {
+            Ioc::setResidentInstance($request);
+        }
 
         $this->middleware($middlewareConfigClass);
 
