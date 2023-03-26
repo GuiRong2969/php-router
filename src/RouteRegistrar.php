@@ -37,7 +37,7 @@ class RouteRegistrar
      * @var array
      */
     protected $passthru = [
-        'get', 'post', 'put', 'patch', 'delete', 'head', 'connect', 'options', 'any', 'group', 'groupBuilder'
+        'get', 'post', 'put', 'patch', 'delete', 'head', 'connect', 'options', 'any', 'map', 'add', 'group', 'groupBuilder'
     ];
 
     /**
