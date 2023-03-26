@@ -347,18 +347,18 @@ Example：
 
 Enable in a single route
 ```php
-$router->middleware(['bedore','after'])->get('/user', 'App\Controllers\UserController');
+$router->middleware(['before','after'])->get('/user', 'App\Controllers\UserController');
 
 ```
 or
 ```php
-$router->middleware('bedore','after')->get('/user', 'App\Controllers\UserController');
+$router->middleware('before','after')->get('/user', 'App\Controllers\UserController');
 
 ```
 
 Enable in routing group
 ```php
-$router->middleware('bedore','after')->group('/user', function ($router) {
+$router->middleware('before','after')->group('/user', function ($router) {
     $router->get('/', function () {
         echo 'hello. you access: /user/';
     });
@@ -377,7 +377,7 @@ $router->group('/user', function ($router) {
     $router->get('/index', function () {
         echo 'hello. you access: /user/index';
     });
-},['bedore','after']);
+},['before','after']);
 
 ```
 

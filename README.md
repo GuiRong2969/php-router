@@ -528,18 +528,18 @@ class MyConfig extends Config
 
 在单一路由中启用
 ```php
-$router->middleware(['bedore','after'])->get('/user', 'App\Controllers\UserController');
+$router->middleware(['before','after'])->get('/user', 'App\Controllers\UserController');
 
 ```
 或
 ```php
-$router->middleware('bedore','after')->get('/user', 'App\Controllers\UserController');
+$router->middleware('before','after')->get('/user', 'App\Controllers\UserController');
 
 ```
 
 在路由组中启用
 ```php
-$router->middleware('bedore','after')->group('/user', function ($router) {
+$router->middleware('before','after')->group('/user', function ($router) {
     $router->get('/', function () {
         echo 'hello. you access: /user/';
     });
@@ -558,7 +558,7 @@ $router->group('/user', function ($router) {
     $router->get('/index', function () {
         echo 'hello. you access: /user/index';
     });
-},['bedore','after']);
+},['before','after']);
 
 ```
 
