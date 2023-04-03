@@ -25,14 +25,14 @@ class JsonResponse extends Response
      * Constructor.
      *
      * @param  mixed  $data
+     * @param  int    $options
      * @param  int    $status
      * @param  array  $headers
-     * @param  int    $options
      * @return void
      */
-    public function __construct($data = null, $options = 0)
+    public function __construct($data = null, $options = 0,$status = 200, array $headers = [])
     {
-        parent::__construct($data);
+        parent::__construct($data,$status,$headers);
         $this->encodingOptions = $options;
         $this->setData($data);
     }
