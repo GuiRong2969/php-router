@@ -21,60 +21,24 @@ class Response
 
     protected $original;
 
-    protected $header = [];
+    protected $statusCode;
 
-    /**
-     * Set output header
-     *
-     * @return void
-     */
-    protected function setHeader(array $value = [])
-    {
-        $this->header = $value;
-        return $this;
-    }
-
-    protected function getHeader($key = '')
-    {
-        if ($key === '') {
-            return $this->header;
-        }
-        return $this->header[$key] ?? null;
-    }
-
-    /**
-     * Set output header
-     *
-     * @return void
-     */
-    protected function sendHeader()
-    {
-        if (!headers_sent() && !empty($this->header)) {
-            http_response_code(200);
-            foreach ($this->header as $name => $val) {
-                header($name . ':' . $val);
-            }
-        }
-    }
+    protected $headers;
 
     /**
      * Constructor.
      *
      * @param  mixed  $data
-     * @param  int    $status
+     * @param  int  $status
      * @param  array  $headers
-     * @param  int    $options
      * @return void
      */
-    public function __construct($data = null)
+    public function __construct($data = null, $status = 200, array $headers = [])
     {
         $this->original = $data;
         $this->content = $data;
-        $this->setHeader(
-            [
-                'Content-Type' => 'text/javascript'
-            ]
-        );
+        $this->statusCode = $status;
+        $this->headers = new HeaderBag($headers);
     }
 
     /**
@@ -140,7 +104,7 @@ class Response
      */
     public function send()
     {
-        $this->sendHeader();
+        $this->sendHeaders();
 
         $this->sendContent();
 
@@ -185,6 +149,44 @@ class Response
                 ob_end_clean();
             }
         }
+    }
+
+    /**
+     * Set a header on the Response.
+     *
+     * @param  string  $key
+     * @param  array|string  $values
+     * @param  bool    $replace
+     * @return $this
+     */
+    public function header($key, $values, $replace = true)
+    {
+        $this->headers->set($key, $values, $replace);
+
+        return $this;
+    }
+
+    /**
+     * Sends HTTP headers.
+     *
+     * @return $this
+     */
+    protected function sendHeaders()
+    {
+        // headers have already been sent by the developer
+        if (headers_sent()) {
+            return $this;
+        }
+
+        // headers
+        foreach ($this->headers->all() as $name => $values) {
+            $replace = 0 === strcasecmp($name, 'Content-Type');
+            foreach ($values as $value) {
+                header($name . ': ' . $value, $replace, $this->statusCode);
+            }
+        }
+
+        return $this;
     }
 
     /**

@@ -62,9 +62,23 @@ class JsonResponse extends Response
             throw new InvalidArgumentException(json_last_error_msg());
         }
 
+        $this->setHeaderContentType();
+
         return $this->setContent($this->data);
     }
 
+    /**
+     * Set headers Content-Type
+     *
+     * @return $this
+     */
+    protected function setHeaderContentType()
+    {
+        if (!$this->headers->has('Content-Type') || 'text/javascript' === $this->headers->get('Content-Type')) {
+            $this->headers->set('Content-Type', 'application/json');
+        }
+        return $this;
+    }
     /**
      * Determine if an error occurred during JSON encoding.
      *
