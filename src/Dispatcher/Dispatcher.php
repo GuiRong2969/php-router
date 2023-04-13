@@ -12,6 +12,8 @@ namespace Guirong\PhpRouter\Dispatcher;
 use Guirong\PhpRouter\Route;
 use Throwable;
 use Guirong\PhpRouter\App\Ioc;
+use Guirong\PhpRouter\Exception\MethodNotAllowedException;
+use Guirong\PhpRouter\Exception\PathNotFoundException;
 use Guirong\PhpRouter\RouterInterface;
 use InvalidArgumentException;
 use LogicException;
@@ -164,7 +166,7 @@ class Dispatcher
     {
         $match = $this->resolveRouteMatch($path, $method);
         $route = $match['route'] ?? null;
-        return $route ? $route->getChains() : [];
+        return ($route instanceof Route) ? $route->getChains() : [];
     }
 
     /**
@@ -348,9 +350,9 @@ class Dispatcher
     protected function handleDefaultNotFound(string $path, string $method, $actionNotExist = false)
     {
         if ($actionNotExist) {
-            throw new RuntimeException("route error , function $path -> $method not exist");
+            throw new PathNotFoundException("route error , function $path -> $method not exist");
         } else {
-            throw new RuntimeException("route not defined , path:$path");
+            throw new PathNotFoundException("route not defined , path:$path");
         }
     }
 
@@ -376,7 +378,7 @@ class Dispatcher
 
     protected function handleDefaultNotAllowed(string $path, string $method, array $methods)
     {
-        throw new RuntimeException("route error , $method method not allowed");
+        throw  new MethodNotAllowedException("route error , $method method not allowed");
     }
 
 

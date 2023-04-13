@@ -140,7 +140,7 @@ class Application
     protected function dispatchToRouter(): Closure
     {
         return function ($request) {
-            return $this->router->dispatch(...$this->getAvailableDispathOptions());
+            return $this->router->dispatch(...$this->getAvailableDispatchOptions());
         };
     }
 
@@ -150,7 +150,7 @@ class Application
      * @param array $options
      * @return $this
      */
-    public function setDispathOptions(array $options)
+    public function setDispatchOptions(array $options)
     {
         if ($options) {
             $this->dispatchOptions = array_merge($this->dispatchOptions, $options);
@@ -163,7 +163,7 @@ class Application
      *
      * @return array
      */
-    protected function getAvailableDispathOptions(): array
+    protected function getAvailableDispatchOptions(): array
     {
         return [
             $this->dispatchOptions['dispatcher'],
