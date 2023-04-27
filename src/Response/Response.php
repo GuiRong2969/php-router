@@ -25,6 +25,8 @@ class Response
 
     protected $headers;
 
+    protected $exception;
+
     /**
      * Constructor.
      *
@@ -205,5 +207,23 @@ class Response
             $response = new Response($response);
         }
         return $response;
+    }
+
+    
+    /**
+     * @param \Throwable $exception
+     */
+    public function setException($exception)
+    {
+        $this->exception = $exception;
+        return $this;
+    }
+
+    /**
+     * @return \Throwable
+     */
+    public function getException()
+    {
+        return $this->exception;
     }
 }

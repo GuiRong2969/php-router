@@ -9,12 +9,14 @@ namespace Guirong\PhpRouter\Middleware;
 
 use Closure;
 use Guirong\PhpRouter\App\Ioc;
+use Guirong\PhpRouter\Response\Response;
+use Throwable;
 
 class Middleware
 {
     protected $middlewares = [];
 
-    public function run($request,Closure $handler)
+    public function run($request, Closure $handler)
     {
         // 通过中间件
         $run = $this->throughMiddleware($handler, $this->middlewares);
@@ -30,16 +32,22 @@ class Middleware
     protected function throughMiddleware($handler, $stack)
     {
         // 闭包实现中间件功能 closures implement middleware functions
+
         foreach (array_reverse($stack) as $key => $middleware) {
             $handler = function ($request) use ($handler, $middleware) {
-                if ($middleware instanceof \Closure) {
-                    return call_user_func($middleware, $request, $handler);
-                } else {
-                    $response = Ioc::make($middleware)->handle($request, $handler);
-                    return $response;
+                try {
+                    if ($middleware instanceof \Closure) {
+                        return call_user_func($middleware, $request, $handler);
+                    } else {
+                        $response = Ioc::make($middleware)->handle($request, $handler);
+                        return $response;
+                    }
+                } catch (Throwable $e) {
+                    return (new Response())->setException($e);
                 }
             };
         }
+
         return $handler;
     }
 
