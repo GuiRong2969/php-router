@@ -397,6 +397,25 @@ $app->terminate($request, $response);
 
 ```
 
+> Middleware exception capture
+
+After configuring the middleware, all system exceptions will be captured by '$response' and mounted in the 'exception' attribute. You can obtain exceptions through '$response ->getException()' and handle them yourself
+
+```php
+$response = $app->handle(
+    $request = $_REQUEST,   //Your request resource, can be customized
+    \App\Middleware\MyConfig::class //Your middleware configuration class, can be customized
+);
+
+if($response->getException()){
+    // get exception
+    $exception = $response->getException();
+
+    // ......handle exception
+}
+
+```
+
 >NOTICE: After configuring the middleware in the above routing, the `http` request will pass through the `handle` function of the `before` middleware. After processing the main business, it will then pass through the `handle` function of the `after` middleware. Finally, after the program response, it will successively enter the `before` and `after` middleware's' `terminate` 'functions
 
 ## example

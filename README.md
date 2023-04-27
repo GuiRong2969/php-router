@@ -563,7 +563,6 @@ $router->group('/user', function ($router) {
 ```
 
 > 路由匹配和调度
-
 ```php
 $app = new \Guirong\PhpRouter\App\Application($router);
 
@@ -578,7 +577,26 @@ $app->terminate($request, $response);
 
 ```
 
->NOTICE: 在以上路由中配置完中间件，`http` 请求会经过 `before` 中间件的 `handle` 函数,在处理完主业务后，继而经过 `after` 中间件的 `handle` 函数，最后在程序 response 后依次进入 `before` ,`after` 中间件的 `terminate` 函数
+> 中间件异常捕获 
+
+配置完中间件后，所有系统异常将被`$response`捕获，并挂载至 `exception` 属性中，您可以通过 `$response->getException()` 获取异常，自行处理
+
+```php
+$response = $app->handle(
+    $request = $_REQUEST,   //你的请求资源，可自定义
+    \App\Middleware\MyConfig::class //你的中间件配置类，可自定义
+);
+
+if($response->getException()){
+    // 提取异常信息
+    $exception = $response->getException();
+
+    // ......自行处理异常
+}
+
+```
+
+> NOTICE: 在以上路由中配置完中间件，`http` 请求会经过 `before` 中间件的 `handle` 函数,在处理完主业务后，继而经过 `after` 中间件的 `handle` 函数，最后在程序 response 后依次进入 `before` ,`after` 中间件的 `terminate` 函数
 
 
 ## 运行示例
