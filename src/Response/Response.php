@@ -169,6 +169,16 @@ class Response
     }
 
     /**
+     * Get HTTP headers.
+     *
+     * @return mixed
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
+    }
+
+    /**
      * Sends HTTP headers.
      *
      * @return $this
@@ -192,16 +202,6 @@ class Response
     }
 
     /**
-     * Get HTTP headers.
-     *
-     * @return mixed
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
-    }
-
-    /**
      * Response processing and return the instance
      *
      * @param object $response
@@ -219,7 +219,7 @@ class Response
         return $response;
     }
 
-    
+
     /**
      * @param \Throwable $exception
      */
