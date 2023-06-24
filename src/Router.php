@@ -344,6 +344,9 @@ class Router implements RouterInterface
      */
     public function map($methods, string $path, $handler, array $pathParams = [], array $opts = []): void
     {
+        if (is_string($methods) && $methods != '') {
+            $methods = explode(',', $methods);
+        }
         foreach ((array)$methods as $method) {
             $this->add($method, $path, $handler, $pathParams, $opts);
         }
@@ -694,7 +697,7 @@ class Router implements RouterInterface
         $response = (new Response())->toResponse(
             $dispatcher->dispatchUri($path, $method)
         );
-        
+
         return $response;
     }
 
@@ -706,7 +709,8 @@ class Router implements RouterInterface
      * @param string               $method
      * @return array
      */
-    public function getMiddleWareChains($dispatcher = null, string $path = '', string $method = ''){
+    public function getMiddleWareChains($dispatcher = null, string $path = '', string $method = '')
+    {
         if (!$dispatcher) {
             $dispatcher = new Dispatcher();
         } elseif (is_array($dispatcher)) {
