@@ -25,7 +25,7 @@ class PathNotFoundException extends \RuntimeException
      * @param integer $code
      * @return array
      */
-    public function __construct(string $message = null, int $statusCode = 400, \Exception $previous = null, array $headers = [], $code = 0)
+    public function __construct(string $message = null, int $statusCode = 404, \Exception $previous = null, array $headers = [], $code = 0)
     {
         $this->statusCode = $statusCode;
         $this->headers    = $headers;
